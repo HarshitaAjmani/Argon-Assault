@@ -1,5 +1,6 @@
 # Argon-Assault
-This is my next try at my game development journey.
+This is my next try at my game development journey...
+Hope you like it <3
 
 ## Argon Assault Game Design
 1. Player Experience: Chaos
