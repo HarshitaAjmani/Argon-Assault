@@ -4,24 +4,37 @@ using UnityEngine;
 
 public class PayerControls : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] float controlSpeed = 5f;
+    [SerializeField] float xRange = 1.8f;
+    [SerializeField] float yRange = 0.9f;
+
+
+    void Update()
     {
-        
+        ProcessTranslation();
+        ProcessRotation();
+    }
+    void ProcessRotation()
+    {
+        float pitch = 0f;
+        float yaw = 0f;
+        float roll = 0f;
+        transform.localRotation = Quaternion.Euler(pitch, yaw, roll);
     }
 
-    // Update is called once per frame
-    void Update()
+    void ProcessTranslation()
     {
         float xThrow = Input.GetAxis("Horizontal");
         float yThrow = Input.GetAxis("Vertical");
 
-        float xOffset = .1f;
-        float newXPos = transform.localPosition.x + xOffset;
+        float xOffset = xThrow * Time.deltaTime * controlSpeed;
+        float rawXPos = transform.localPosition.x + xOffset;
+        float clampedXPos = Mathf.Clamp(rawXPos, -xRange, xRange);
 
-        transform.localPosition = new Vector3(newXPos, transform.localPosition.y, transform.localPosition.z);
+        float yOffset = yThrow * Time.deltaTime * controlSpeed;
+        float rawYPos = transform.localPosition.y + yOffset;
+        float clampedYPos = Mathf.Clamp(rawYPos, -yRange, yRange);
 
-
-
+        transform.localPosition = new Vector3(clampedXPos, clampedYPos, transform.localPosition.z);
     }
 }
