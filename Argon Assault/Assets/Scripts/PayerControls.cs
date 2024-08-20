@@ -6,7 +6,11 @@ public class PayerControls : MonoBehaviour
 {
     [SerializeField] float controlSpeed = 5f;
     [SerializeField] float xRange = 1.8f;
-    [SerializeField] float yRange = 0.9f;
+    [SerializeField] float yRange = 1.5f;
+
+    [SerializeField] float PositionPitchFactor = 15f;
+    [SerializeField] float PositionRollFactor = 15f;
+    [SerializeField] float PositionYawFactor = 40f;
 
 
     void Update()
@@ -16,9 +20,11 @@ public class PayerControls : MonoBehaviour
     }
     void ProcessRotation()
     {
-        float pitch = 0f;
-        float yaw = 0f;
+        float pitch =  - (transform.localPosition.y / yRange) * PositionPitchFactor;
+        float yaw = 0f; 
         float roll = 0f;
+
+        Debug.Log(pitch);
         transform.localRotation = Quaternion.Euler(pitch, yaw, roll);
     }
 
